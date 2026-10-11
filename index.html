@@ -11,35 +11,22 @@
       gtag('config', 'AW-18503681609');
     </script>
 
-    <!-- Event snippet for 出站点击 conversion page -->
-    <script>
-    function gtag_report_conversion(url) {
-        var done = false;
-        var go = function () {
-            if (done) return;
-            done = true;
-            if (typeof url !== 'undefined') {
-                window.location = url;
-            }
-        };
-
-        try {
-            if (typeof gtag === 'function') {
-                // 安全兜底：最多等 1.2 秒，防止 gtag 异常导致无法跳转
-                setTimeout(go, 200);
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-18503681609/ePN8CIal_ZYdEMmMn_dE',
-                    'event_callback': go
-                });
-                return false;
-            }
-        } catch (e) {
-            // 出错时也保证跳转
-        }
-        go();
-        return false;
+<!-- Event snippet for 出站点击 conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
     }
-    </script>
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18503681609/ePN8CIal_ZYdEMmMn_dE',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
