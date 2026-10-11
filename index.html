@@ -26,7 +26,7 @@
         try {
             if (typeof gtag === 'function') {
                 // 安全兜底：最多等 1.2 秒，防止 gtag 异常导致无法跳转
-                setTimeout(go, 1200);
+                setTimeout(go, 200);
                 gtag('event', 'conversion', {
                     'send_to': 'AW-18503681609/ePN8CIal_ZYdEMmMn_dE',
                     'event_callback': go
