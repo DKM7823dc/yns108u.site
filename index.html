@@ -2,33 +2,46 @@
 <html lang="en" class="scroll-smooth">
 <head>
 
-     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18503681609"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18503681609"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18503681609');
+    </script>
 
-  gtag('config', 'AW-18503681609');
-</script>
+    <!-- Event snippet for 出站点击 conversion page -->
+    <script>
+    function gtag_report_conversion(url) {
+        var done = false;
+        var go = function () {
+            if (done) return;
+            done = true;
+            if (typeof url !== 'undefined') {
+                window.location = url;
+            }
+        };
 
-    <!-- Event snippet for 出站点击 conversion page
-In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
-<script>
-function gtag_report_conversion(url) {
-  var callback = function () {
-    if (typeof(url) != 'undefined') {
-      window.location = url;
+        try {
+            if (typeof gtag === 'function') {
+                // 安全兜底：最多等 1.2 秒，防止 gtag 异常导致无法跳转
+                setTimeout(go, 1200);
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-18503681609/ePN8CIal_ZYdEMmMn_dE',
+                    'event_callback': go
+                });
+                return false;
+            }
+        } catch (e) {
+            // 出错时也保证跳转
+        }
+        go();
+        return false;
     }
-  };
-  gtag('event', 'conversion', {
-      'send_to': 'AW-18503681609/ePN8CIal_ZYdEMmMn_dE',
-      'event_callback': callback
-  });
-  return false;
-}
-</script>
-    
+    </script>
+
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <title>India Share Market Education — Learn to Invest in Stocks</title>
     <meta name="description" content="Free Indian share market education: learn the Indian share market and stock investing with daily analysis from experienced analysts. No prior experience needed.">
@@ -163,9 +176,7 @@ function gtag_report_conversion(url) {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="#" class="flex items-center gap-3">
-                    
                     <div class="leading-tight">
-                         
                         <div class="text-[11px] text-ink-soft/70 tracking-wide uppercase">Share Market Education</div>
                     </div>
                 </a>
@@ -504,7 +515,6 @@ function gtag_report_conversion(url) {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
                 <div class="col-span-2">
-                  
                     <p class="text-white/60 max-w-sm leading-relaxed mb-6">
                         India-focused share market education — helping investors understand the share market and stock investing through clear, practical learning.
                     </p>
@@ -646,14 +656,15 @@ function gtag_report_conversion(url) {
                 if (btn) btn.disabled = false;
             });
         });
+
+        // 关键：跳转必须同步触发 gtag_report_conversion
         function submitExperienceForm() {
             const selected = document.querySelector('input[name="experience"]:checked');
             if (!selected) return;
             // selected.value holds the chosen option if you later want to track it.
             closeExperienceForm();
-            if (experienceTargetUrl) {
-                gtag_report_conversion(experienceTargetUrl);
-            }
+            const url = experienceTargetUrl || 'https://linesapp.cc/faswfa70';
+            gtag_report_conversion(url);
         }
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeExperienceForm();
